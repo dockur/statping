@@ -24,9 +24,6 @@ Statping-ng aims to be an updated drop-in replacement of statping after developm
 <p>
   Statping-ng strives to remain future-proof and remain intact if a failure is created. Your Statping-ng service should not be running on the same instance you're trying to monitor. If your server crashes your Status Page should still remaining online to notify your users of downtime.
 </p>
-<p>
-  <a href="https://labs.play-with-docker.com/?stack=https://raw.githubusercontent.com/statping-ng/statping-ng/stable/dev/pwd-stack.yml"><img alt="Try Statping-ng via Play with Docker" src="https://statping-ng.github.io/assets/external/docker-pwd.png" height="25px" style="height:25px" /></a> - Login is <kbd>admin</kbd>, password <kbd>admin</kbd>.
-</p>
 <div style="clear:both;"><br/><br/></div>
 
 
