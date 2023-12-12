@@ -2991,9 +2991,9 @@ code-point-at@^1.0.0:
   integrity sha1-DQcLTQQ6W+ozovGkDi7bPZpMz3c=
 
 codemirror-colorpicker@^1.9.66:
-  version "1.9.72"
-  resolved "https://registry.yarnpkg.com/codemirror-colorpicker/-/codemirror-colorpicker-1.9.72.tgz#e6c9cb29e4e4bb7fe27cc8f8f0bbc4386996cf37"
-  integrity sha512-ZD8IenGqnj3gfutn2mxuinvEkBZnLJalcs/v6809KQe7UjevYrwx0BWSmXpp/kHp/o/cpoSrdUnrlkaI6d8t5Q==
+  version "1.9.80"
+  resolved "https://registry.yarnpkg.com/codemirror-colorpicker/-/codemirror-colorpicker-1.9.80.tgz#aa3c39527e840dd245f0c85830b7a435296b808f"
+  integrity sha512-7lGqNxf5haBJXLnVR1ynPiPkN2d1Whm0jdy8Z9QsSOhRWVyK2C2ihgm1dX4DCks57ht/jKMdpL9lYv+zAphxWQ==
 
 codemirror@^5.41.0:
   version "5.56.0"
