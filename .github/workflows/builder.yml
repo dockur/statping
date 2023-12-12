@@ -104,7 +104,7 @@ jobs:
         if: env.exists == 'false'
         run: |
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone --recurse-submodules -j8 https://github.com/statping-ng/statping-ng.git --single-branch --branch dev
+          git clone --recurse-submodules -j8 https://github.com/statping-ng/statping-ng.git --single-branch --branch v${{ env.latest_tag }}
           cp Dockerfile statping-ng/
           cp .dockerignore statping-ng/
       -
