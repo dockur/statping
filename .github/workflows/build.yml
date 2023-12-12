@@ -1,4 +1,4 @@
-name: Statping build
+name: Disabled
 on:
   workflow_call:
 
