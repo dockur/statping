@@ -13,10 +13,29 @@
 
 # Statping-ng
 <p>An easy to use Status Page for your websites and applications. Statping will automatically fetch the application and render a beautiful status page with tons of features for you to build an even better status page. This Status Page generator allows you to use MySQL, Postgres, or SQLite on multiple operating systems.
-</p><p>
-Statping-ng aims to be an updated drop-in replacement of statping after development stopped on the original fork.
 </p>
 
+
+Via `docker-compose`
+
+```yaml
+version: "3"
+services:
+  statping:
+    container_name: statping
+    image: dockurr/statping:latest
+    ports:
+        - 8080:8080
+    volumes:
+      - /opt/statping:/app
+    restart: always
+    stop_grace_period: 1m
+```
+
+networks:
+  ipv6:
+    external: true
+    name: "ipv6"
 <hr/>
 <h2 align="center" style="text-align:center">About Statping-ng</h2>
 
