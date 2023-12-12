@@ -1,0 +1,146 @@
+name: Builder
+on:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 * * * *'
+
+concurrency:
+  group: build
+  cancel-in-progress: false
+
+jobs:
+  build:
+    name: Builder
+    runs-on: ubuntu-latest
+    permissions:
+      actions: write
+      packages: write
+      contents: read
+    steps:
+      - 
+        name: Run graphql query to get tag
+        uses: octokit/graphql-action@v2.x
+        id: latest_tag
+        with:
+          variables: |
+            repo: statping-ng
+            owner: statping-ng
+          query: |
+            query tag($owner: String!, $repo: String!) {
+              repository(owner: $owner, name: $repo) {
+                refs(refPrefix: "refs/tags/", last: 1, orderBy: {field: TAG_COMMIT_DATE, direction: ASC}) {
+                  edges {
+                    node {
+                      name
+               } } } } }
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      - 
+        name: Parse tag from query output
+        run: |
+          #!/bin/bash
+          latest_tag=$(echo '${{ steps.latest_tag.outputs.data }}' | jq '.repository.refs.edges[][].name' -r)
+          [ -z "$latest_tag" ] && echo "Tag not found!" && exit 1
+          [[ "$latest_tag" == "null" ]] && echo "Tag not found!" && exit 1
+          [[ "$latest_tag" = v* ]] && latest_tag="${latest_tag:1}"
+          echo "Found tag: \"${latest_tag}\"" 
+          echo "latest_tag=$latest_tag" >> $GITHUB_ENV
+      - 
+        name: Check if the tag exists locally
+        uses: action-pack/tag-exists@v1
+        id: checkTag
+        with: 
+          tag: 'v${{ env.latest_tag }}'         
+      -
+        name: Finish when found
+        run: |
+          #!/bin/bash
+          val="${{ steps.checkTag.outputs.exists }}"
+          echo "exists=${val}" >> $GITHUB_ENV
+      -
+        name: Checkout
+        if: env.exists == 'false'
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      -
+        name: Docker metadata
+        id: meta
+        if: env.exists == 'false'
+        uses: docker/metadata-action@v5
+        with:
+          context: git
+          images: |
+            ${{ secrets.DOCKERHUB_REPO }}
+            ghcr.io/${{ github.repository }}
+          tags: |
+            type=raw,value=latest,priority=100
+            type=raw,value=${{ env.latest_tag }}
+          labels: |
+            org.opencontainers.image.title=${{ vars.NAME }}
+        env:
+          DOCKER_METADATA_ANNOTATIONS_LEVELS: manifest,index
+      - 
+        name: Set up Docker Buildx
+        if: env.exists == 'false'
+        uses: docker/setup-buildx-action@v3
+      -
+        name: Login into Docker Hub
+        if: env.exists == 'false'
+        uses: docker/login-action@v3
+        with:
+          username: ${{ secrets.DOCKERHUB_USERNAME }}
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+      -
+        name: Login to GitHub Container Registry
+        if: env.exists == 'false'
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+      -
+        name: Clone remote branch
+        if: env.exists == 'false'
+        run: |
+          git config --global url.https://github.com/.insteadOf git://github.com/
+          git clone --recurse-submodules -j8 https://github.com/statping-ng/statping-ng.git --single-branch --branch master
+          cp Dockerfile statping-ng/
+          cp .dockerignore statping-ng/
+      -
+        name: Build Docker image
+        if: env.exists == 'false'
+        uses: docker/build-push-action@v5
+        with:
+          context: ./${{ github.event.repository.name }}
+          push: true
+          provenance: false
+          platforms: linux/amd64,linux/arm64,linux/arm
+          tags: ${{ steps.meta.outputs.tags }}
+          labels: ${{ steps.meta.outputs.labels }}
+          annotations: ${{ steps.meta.outputs.annotations }}
+          build-args: |
+            COMMIT=${GITHUB_SHA::8}
+            VERSION=${{ steps.meta.outputs.version }}
+      -
+        name: Create a release
+        if: env.exists == 'false'
+        uses: action-pack/github-release@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.REPO_ACCESS_TOKEN }}
+        with:
+          tag: "v${{ steps.meta.outputs.version }}"
+          title: "v${{ steps.meta.outputs.version }}"
+      -
+       name: Send mail
+       if: env.exists == 'false'
+       uses: dawidd6/action-send-mail@v3
+       with:
+         to: ${{secrets.MAILTO}}
+         from: Github Actions <${{secrets.MAILTO}}>
+         connection_url: ${{secrets.MAIL_CONNECTION}}
+         subject: Build of ${{ github.event.repository.name }} v${{ steps.meta.outputs.version }} completed
+         body: |
+              The build job of ${{ github.event.repository.name }} v${{ steps.meta.outputs.version }} was completed successfully! 
+              
+              See https://github.com/${{ github.repository }}/actions for more information.
