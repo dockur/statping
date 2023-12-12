@@ -1,18 +1,14 @@
 <h1 align="center" style="text-align:center">
-  <img alt="Statping-ng" src="https://raw.githubusercontent.com/statping-ng/statping-ng/dev/frontend/public/img/banner.png" width="60%" style="width:60%"/>
+  <img alt="Statping-ng" src="https://raw.githubusercontent.com/dockur/statping-ng/dev/frontend/public/img/banner.png" width="60%" style="width:60%"/>
+  <div align="center">
+
+[![Build]][build_url]
+[![Version]][tag_url]
+[![Size]][tag_url]
+[![Pulls]][hub_url]
+
+</div>
 </h1>
-<p align="center" style="text-align:center">
-  <strong>Statping-ng</strong> - <em>Web and App Status Monitoring for Any Type of Project</em>
-</p>
-<p align="center" style="text-align:center">
-  <a href="https://statping-ng.github.io" >Website</a> |
-  <a href="https://github.com/statping-ng/statping-ng/wiki" >Wiki</a>
-  <br/>
-  <a href="https://github.com/statping-ng/statping-ng/wiki/Linux" >Linux</a> |
-  <a href="https://github.com/statping-ng/statping-ng/wiki/Windows" >Windows</a> |
-  <a href="https://github.com/statping-ng/statping-ng/wiki/Mac" >Mac</a> |
-  <a href="https://github.com/statping-ng/statping-ng/wiki/Docker" >Containers</a>
-</p>
 
 <h2> Statping-ng - <em>Status Page & Monitoring Server</em></h2>
 <p>An easy to use Status Page for your websites and applications. Statping will automatically fetch the application and render a beautiful status page with tons of features for you to build an even better status page. This Status Page generator allows you to use MySQL, Postgres, or SQLite on multiple operating systems.
@@ -139,3 +135,12 @@ scrape_configs:
     static_configs:
       - targets: ['statping:8080']
 ```
+
+[build_url]: https://github.com/dockur/statping/
+[hub_url]: https://hub.docker.com/r/dockurr/statping/
+[tag_url]: https://hub.docker.com/r/dockurr/statping/tags
+
+[Build]: https://github.com/dockur/statping/actions/workflows/build.yml/badge.svg
+[Size]: https://img.shields.io/docker/image-size/dockurr/statping/latest?color=066da5&label=size
+[Pulls]: https://img.shields.io/docker/pulls/dockurr/statping.svg?style=flat&label=pulls&logo=docker
+[Version]: https://img.shields.io/docker/v/dockurr/statping/latest?arch=amd64&sort=semver&color=066da5
