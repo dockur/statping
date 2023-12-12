@@ -112,7 +112,7 @@ jobs:
         if: env.exists == 'false'
         uses: docker/build-push-action@v5
         with:
-          context: ./${{ github.event.repository.name }}
+          context: ./statping-ng
           push: true
           provenance: false
           platforms: linux/amd64,linux/arm64,linux/arm
