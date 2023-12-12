@@ -1,6 +1,7 @@
-<h1 align="center" style="text-align:center">
-  <img alt="Statping-ng" src="https://raw.githubusercontent.com/dockur/statping-ng/dev/frontend/public/img/banner.png" width="60%" style="width:60%"/>
-  <div align="center">
+<div align="center">
+  <img alt="Statping-ng" src="https://raw.githubusercontent.com/dockur/statping-ng/dev/frontend/public/img/banner.png" style="max-width:100%;" width="256" />
+</div>
+<div align="center">
 
 [![Build]][build_url]
 [![Version]][tag_url]
