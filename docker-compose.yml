@@ -1,16 +1,11 @@
-version: '2.3'
-
+version: "3"
 services:
   statping:
     container_name: statping
     image: dockurr/statping:latest
-    restart: always
-    volumes:
-      - statping_data:/app
-    environment:
-      DB_CONN: sqlite
     ports:
-      - 8080:8080
-
-volumes:
-  statping_data:
+        - 8080:8080
+    volumes:
+      - /opt/statping:/app
+    restart: always
+    stop_grace_period: 1m
