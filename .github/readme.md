@@ -140,7 +140,7 @@ scrape_configs:
 [hub_url]: https://hub.docker.com/r/dockurr/statping/
 [tag_url]: https://hub.docker.com/r/dockurr/statping/tags
 
-[Build]: https://github.com/dockur/statping/actions/workflows/build.yml/badge.svg
+[Build]: https://github.com/dockur/statping/actions/workflows/builder.yml/badge.svg
 [Size]: https://img.shields.io/docker/image-size/dockurr/statping/latest?color=066da5&label=size
 [Pulls]: https://img.shields.io/docker/pulls/dockurr/statping.svg?style=flat&label=pulls&logo=docker
 [Version]: https://img.shields.io/docker/v/dockurr/statping/latest?arch=amd64&sort=semver&color=066da5
