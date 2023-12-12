@@ -91,48 +91,6 @@ Having a straight forward dashboard makes Statping-ng that much better. Quickly 
 
 <img style="margin:35px 0;width:100%;height:250px;" align="center" width="100%" height="250" src="https://statping-ng.github.io/assets/external/statupsc2.png" />
 
-
-
-<h2 align="center" style="text-align:center">Quick Start</h2>
-<p>Here's a few quick start guides to get you going, fast.</p>
-
-<h3>Docker</h3>
-<p>Use the <a href="https://hub.docker.com/r/adamboutcher/statping-ng">Statping Docker Image</a> to create a status page in seconds. Checkout the <a href="https://github.com/statping-ng/statping-ng/wiki/Docker">Docker Wiki</a> to view more details on how to get started using Docker.
-</p>
-
-```bash
-docker run -it -p 8080:8080 adamboutcher/statping-ng
-```
-
-<h3>Docker Compose</h3>
-<p>In the root (base) folder there is a standard docker-compose file that includes nginx, postgres, and Statping-ng.</p>
-
-```bash
-docker-compose up -d
-```
-
-<h3>Docker Compose with Automatic SSL</h3>
-<p>You can automatically start a Statping-ng server with automatic SSL encryption using this docker-compose file. First point your domain's DNS to the Statping-ng server, and then run this docker-compose command with DOMAIN and EMAIL. Email is for <a href="https://letsencrypt.org/">letsencrypt</a> services.</p>
-
-```bash
-LETSENCRYPT_HOST=mydomain.com \
-    LETSENCRYPT_EMAIL=info@mydomain.com \
-    docker-compose -f docker-compose-ssl.yml up -d
-```
-
-<p>Once your instance has started, it will take a moment to get your SSL certificate. Make sure you have a A or CNAME record on your domain that points to the IP/DNS of your server running Statping-ng.</p>
-
-<h3>Prometheus Exporter</h3>
-<p>Statping-ng includes a <a href="https://github.com/statping-ng/statping-ng/wiki/Prometheus-Exporter">Prometheus Exporter</a> so you can have even more monitoring power with your services. The Prometheus exporter can be seen on <kbd>/metrics</kbd>, simply create another exporter in your prometheus config. Use your Statping-ng API Secret for the Authorization Bearer header, the <kbd>/metrics</kbd> URL is dedicated for Prometheus and requires the correct API Secret has <kbd>Authorization</kbd> header.</p>
-
-```yaml
-scrape_configs:
-  - job_name: 'statping'
-    bearer_token: 'MY API SECRET HERE'
-    static_configs:
-      - targets: ['statping:8080']
-```
-
 [build_url]: https://github.com/dockur/statping/
 [hub_url]: https://hub.docker.com/r/dockurr/statping/
 [tag_url]: https://hub.docker.com/r/dockurr/statping/tags
