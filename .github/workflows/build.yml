@@ -1,11 +1,6 @@
 name: Statping build
 on:
-  push:
-    paths-ignore:
-      - "*"
-  pull_request:
-    paths-ignore:
-      - "*"
+  workflow_call:
 
 jobs:
   data:
