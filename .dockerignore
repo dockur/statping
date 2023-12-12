@@ -30,3 +30,8 @@ Dockerfile.base
 !dev/prometheus.yml
 docker
 statping.db
+.dockerignore
+docker-compose.yml
+renovate.json
+
+*.md
