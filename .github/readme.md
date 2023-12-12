@@ -139,9 +139,3 @@ scrape_configs:
     static_configs:
       - targets: ['statping:8080']
 ```
-
-<h2>Contributing</h2>
-<p>Statping-ng accepts Push Requests to the <kbd>dev</kbd> branch!</p>
-<p>Feel free to add your own features and notifiers.You probably want to checkout the <a href="https://github.com/statping-ng/statping-ng/wiki/Notifiers">Notifier Wiki</a> to get a better understanding on how to create your own notification methods for failing/successful services.</p>
-<p>Testing on Statping-ng will test each function on MySQL, Postgres, and SQLite. I recommend running MySQL and Postgres Docker containers for testing.</p>
-<p>You can find multiple docker-compose files in the <kbd>dev</kbd> directory.</p>
