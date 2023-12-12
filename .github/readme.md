@@ -34,7 +34,6 @@ services:
 ```
 
 <hr/>
-<h2 align="center" style="text-align:center">About Statping-ng</h2>
 
 <img style="margin-right:10px;float:left;width:320px;height:235px;" align="left"  width="320" height="235" src="https://statping-ng.github.io/assets/external/statupsiterun.gif" />
 <h3>A Future-Proof Status Page</h3>
