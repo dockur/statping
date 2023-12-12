@@ -2,10 +2,10 @@ name: Statping build
 on:
   push:
     paths-ignore:
-      - "**.md"
+      - "*"
   pull_request:
     paths-ignore:
-      - "**.md"
+      - "*"
 
 jobs:
   data:
