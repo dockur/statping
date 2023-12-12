@@ -26,7 +26,7 @@ services:
     container_name: statping
     image: dockurr/statping:latest
     ports:
-        - 8080:8080
+      - 8080:8080
     volumes:
       - /opt/statping:/app
     restart: always
