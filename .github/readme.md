@@ -11,7 +11,7 @@
 </div>
 </h1>
 
-<h2> Statping-ng - <em>Status Page & Monitoring Server</em></h2>
+# Statping-ng
 <p>An easy to use Status Page for your websites and applications. Statping will automatically fetch the application and render a beautiful status page with tons of features for you to build an even better status page. This Status Page generator allows you to use MySQL, Postgres, or SQLite on multiple operating systems.
 </p><p>
 Statping-ng aims to be an updated drop-in replacement of statping after development stopped on the original fork.
