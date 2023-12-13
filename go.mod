@@ -24,7 +24,7 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
 	github.com/statping-ng/emails v1.0.3
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.4
 	github.com/t-tiger/gorm-bulk-insert/v2 v2.0.1
 	golang.org/x/crypto v0.4.0
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
