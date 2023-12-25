@@ -1,4 +1,4 @@
-FROM node:16.14.0-alpine AS frontend
+FROM node:21.5.0-alpine AS frontend
 LABEL maintainer="Statping-ng (https://github.com/statping-ng)"
 ARG BUILDPLATFORM
 WORKDIR /statping
