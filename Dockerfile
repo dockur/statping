@@ -47,7 +47,7 @@ RUN chmod a+x statping && mv statping /go/bin/statping
 # /statping - Vue frontend (from frontend)
 
 # Statping main Docker image that contains all required libraries
-FROM alpine:3.18
+FROM alpine:3.19
 
 RUN apk --no-cache add libgcc libstdc++ ca-certificates curl jq && update-ca-certificates
 
