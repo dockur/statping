@@ -10,7 +10,7 @@ RUN yarn build && yarn cache clean
 
 # Statping Golang BACKEND building from source
 # Creates "/go/bin/statping" and "/usr/local/bin/sass" for copying
-FROM golang:1.20.0 AS backend
+FROM golang:1.20.0-alpine AS backend
 LABEL maintainer="Statping-NG (https://github.com/statping-ng)"
 ARG VERSION
 ARG COMMIT
@@ -47,7 +47,7 @@ RUN chmod a+x statping && mv statping /go/bin/statping
 # /statping - Vue frontend (from frontend)
 
 # Statping main Docker image that contains all required libraries
-FROM alpine:3.18
+FROM alpine:latest
 
 RUN apk --no-cache add libgcc libstdc++ ca-certificates curl jq && update-ca-certificates
 
