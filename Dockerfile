@@ -49,7 +49,7 @@ RUN chmod a+x statping && mv statping /go/bin/statping
 # Statping main Docker image that contains all required libraries
 FROM alpine:latest
 
-RUN apk --no-cache add libgcc libstdc++ ca-certificates curl jq && update-ca-certificates
+RUN apk --no-cache add libgcc libstdc++ ca-certificates curl jq && update-ca-certificates && rm -rf /var/cache/apk/*
 
 COPY --from=backend /go/bin/statping /usr/local/bin/
 COPY --from=backend /root/sassc/bin/sassc /usr/local/bin/
