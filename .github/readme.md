@@ -24,7 +24,7 @@ version: "3"
 services:
   statping:
     container_name: statping
-    image: dockurr/statping:latest
+    image: dockurr/statping
     ports:
       - 8080:8080
     volumes:
