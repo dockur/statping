@@ -1,5 +1,5 @@
 <div align="center">
-  <img alt="Statping-ng" src="https://raw.githubusercontent.com/dockur/statping-ng/dev/frontend/public/img/banner.png" style="max-width:100%;" width="256" />
+  <a href="https://github.com/dockur/statping"><img alt="Statping-ng" src="https://raw.githubusercontent.com/dockur/statping-ng/dev/frontend/public/img/banner.png" style="max-width:100%;" width="256" /></a>
 </div>
 <div align="center">
 
