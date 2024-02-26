@@ -14,7 +14,7 @@ require (
 	github.com/getsentry/sentry-go v0.5.1
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-ping/ping v1.1.0
-	github.com/gorilla/mux v1.7.4
+	github.com/gorilla/mux v1.8.1
 	github.com/hako/durafmt v0.0.0-20200605151348-3a43fc422dd9
 	github.com/jinzhu/gorm v1.9.12
 	github.com/mattn/go-sqlite3 v2.0.3+incompatible
