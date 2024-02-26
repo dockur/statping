@@ -6,7 +6,7 @@ require (
 	github.com/GeertJohan/go.rice v1.0.3
 	github.com/aws/aws-sdk-go v1.30.20
 	github.com/dgrijalva/jwt-go v3.2.0+incompatible
-	github.com/emersion/go-imap v1.0.6
+	github.com/emersion/go-imap v1.2.1
 	github.com/emersion/go-sasl v0.0.0-20200509203442-7bfe0ed36a21 // indirect
 	github.com/fatih/structs v1.1.0
 	github.com/foomo/simplecert v1.7.5
