@@ -16,7 +16,7 @@ jobs:
       go_version: ${{ steps.tool-versions.outputs.go_version }}
       node_version: ${{ steps.tool-versions.outputs.node_version }}
     steps:
-      - uses: actions/checkout@v3
+      - uses: actions/checkout@v4
         with:
           # check on https://github.com/actions/checkout/pull/579 occasionally if actions/checkout can do this natively yet
           fetch-depth: 0
@@ -64,7 +64,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: data
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ needs.data.outputs.go_version }}
@@ -111,7 +111,7 @@ jobs:
             arch: 386
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
 
       - name: Download Compiled Frontend (rice-box.go)
         uses: actions/download-artifact@v1
@@ -221,7 +221,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ needs.data.outputs.go_version }}
@@ -301,7 +301,7 @@ jobs:
     needs: [ data, frontend ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ needs.data.outputs.go_version }}
@@ -351,7 +351,7 @@ jobs:
         options: --health-cmd="mysqladmin ping" --health-interval=10s --health-timeout=5s --health-retries=3
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ needs.data.outputs.go_version }}
@@ -402,7 +402,7 @@ jobs:
         options: --health-cmd pg_isready --health-interval 10s --health-timeout 5s --health-retries 5
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: actions/setup-go@v2
         with:
           go-version: ${{ needs.data.outputs.go_version }}
@@ -442,7 +442,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
       - uses: jemand771/docker-build-action@main
         with:
           GITHUB_TOKEN: ${{ github.token }}
