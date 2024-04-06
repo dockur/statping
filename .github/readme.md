@@ -17,7 +17,7 @@
 
 ## How to use
 
-Via `docker-compose`
+Via Docker Compose:
 
 ```yaml
 version: "3"
