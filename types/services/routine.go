@@ -335,6 +335,9 @@ func CheckSmtp(s *Service, record bool) (*Service, error) {
 
 	// check if 'Content-Type' header was defined
 	for _, header := range headers {
+		if len(strings.Split(header, "=")) < 2 {
+			continue
+		}
 		switch strings.ToLower(strings.Split(header, "=")[0]) {
 		case "username":
 			username = strings.Split(header, "=")[1]
@@ -447,6 +450,9 @@ func CheckImap(s *Service, record bool) (*Service, error) {
 
 	// check if 'Content-Type' header was defined
 	for _, header := range headers {
+		if len(strings.Split(header, "=")) < 2 {
+			continue
+		}
 		switch strings.ToLower(strings.Split(header, "=")[0]) {
 		case "username":
 			username = strings.Split(header, "=")[1]
@@ -547,6 +553,9 @@ func CheckHttp(s *Service, record bool) (*Service, error) {
 
 	// check if 'Content-Type' header was defined
 	for _, header := range headers {
+		if len(strings.Split(header, "=")) < 2 {
+			continue
+		}
 		if strings.Split(header, "=")[0] == "Content-Type" {
 			contentType = strings.Split(header, "=")[1]
 			break
