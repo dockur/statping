@@ -20,7 +20,6 @@
 Via Docker Compose:
 
 ```yaml
-version: "3"
 services:
   statping:
     container_name: statping
