@@ -27,8 +27,7 @@ services:
     ports:
       - 8080:8080
     volumes:
-      - /opt/statping:/app
-    restart: always
+      - /var/statping:/app
     stop_grace_period: 1m
 ```
 
