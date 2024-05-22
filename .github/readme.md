@@ -31,6 +31,11 @@ services:
     stop_grace_period: 1m
 ```
 
+Via Docker CLI:
+
+```bash
+docker run -it --rm -p 8080:8080 --stop-timeout 60 dockurr/statping
+```
 <hr/>
 
 <img style="margin-right:10px;float:left;width:320px;height:235px;" align="left"  width="320" height="235" src="https://statping-ng.github.io/assets/external/statupsiterun.gif" />
