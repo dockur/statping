@@ -11,11 +11,14 @@
 </div>
 </h1>
 
-# Statping-ng
-<p>An easy to use Status Page for your websites and applications. Statping will automatically fetch the application and render a beautiful status page with tons of features for you to build an even better status page. This Status Page generator allows you to use MySQL, Postgres, or SQLite on multiple operating systems.
-</p>
+An easy to use status page for your websites and applications.
 
-## How to use
+## Features ✨
+
+  - Renders a beautiful status page
+  - Allows you to use MySQL, Postgres or SQLite
+
+## Usage  🐳
 
 Via Docker Compose:
 
@@ -110,7 +113,7 @@ Having a straight forward dashboard makes Statping-ng that much better. Quickly 
 
 <img style="margin:35px 0;width:100%;height:250px;" align="center" width="100%" height="250" src="https://statping-ng.github.io/assets/external/statupsc2.png" />
 
-## Stars
+## Stars 🌟
 [![Stars](https://starchart.cc/dockur/statping.svg?variant=adaptive)](https://starchart.cc/dockur/statping)
 
 [build_url]: https://github.com/dockur/statping/
