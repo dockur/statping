@@ -1,6 +1,8 @@
 module github.com/statping-ng/statping-ng
 
-go 1.19
+go 1.21.0
+
+toolchain go1.22.4
 
 require (
 	github.com/GeertJohan/go.rice v1.0.3
@@ -10,7 +12,7 @@ require (
 	github.com/emersion/go-sasl v0.0.0-20200509203442-7bfe0ed36a21 // indirect
 	github.com/fatih/structs v1.1.0
 	github.com/foomo/simplecert v1.7.5
-	github.com/foomo/tlsconfig v0.0.0-20180418120404-b67861b076c9
+	github.com/foomo/tlsconfig v1.0.1
 	github.com/getsentry/sentry-go v0.5.1
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-ping/ping v1.1.0
