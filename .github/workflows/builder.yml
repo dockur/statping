@@ -68,7 +68,7 @@ jobs:
         if: env.exists == 'false'
         run: |
           #!/bin/bash
-          git remote add upstream https://github.com/statping-ng/statping-ng.git
+          git remote add upstream ${{ env.remote }}
           git fetch upstream 2>/dev/null
           ahead=$(git rev-list --count upstream/dev..master)
           behind=$(git rev-list --count master..upstream/dev)
@@ -125,7 +125,7 @@ jobs:
         if: env.exists == 'false'
         run: |
           git config --global url.https://github.com/.insteadOf git://github.com/
-          git clone --recurse-submodules -j8 https://github.com/statping-ng/statping-ng.git --single-branch --branch v${{ env.latest_tag }}
+          git clone --recurse-submodules -j8 ${{ env.remote }} --single-branch --branch v${{ env.latest_tag }}
           cp Dockerfile statping-ng/
           cp .dockerignore statping-ng/
       -
