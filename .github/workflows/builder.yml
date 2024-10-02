@@ -72,6 +72,7 @@ jobs:
           git fetch upstream 2>/dev/null
           ahead=$(git rev-list --count upstream/dev..master)
           behind=$(git rev-list --count master..upstream/dev)
+          git remote remove upstream
           [[ "$behind" == "0" ]] && exit 0
           echo "Behind upstream: $behind commits"
           exit 33
