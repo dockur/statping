@@ -70,7 +70,7 @@ jobs:
         run: |
           #!/bin/bash
           git remote add upstream ${{ env.remote }}
-          git fetch upstream 2>/dev/null
+          git fetch --no-tags upstream 2>/dev/null
           ahead=$(git rev-list --count upstream/dev..master)
           behind=$(git rev-list --count master..upstream/dev)
           git remote remove upstream
