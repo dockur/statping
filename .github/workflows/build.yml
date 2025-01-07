@@ -65,7 +65,7 @@ jobs:
     needs: data
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ needs.data.outputs.go_version }}
       - name: Install rice
@@ -88,7 +88,7 @@ jobs:
         run: rice embed-go
         working-directory: source
       - name: Upload Compiled Frontend (rice-box.go)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -114,7 +114,7 @@ jobs:
       - uses: actions/checkout@v2
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -188,9 +188,9 @@ jobs:
           echo "compressed=statping-darwin-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
       - name: Upload Compiled Statping Binary
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
-          name: binaries
+          name: binaries-${{ matrix.platform }}-${{ matrix.arch }}
           path: ./build
 
   # TODO refactor (and fix) tests
@@ -222,7 +222,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ needs.data.outputs.go_version }}
       - uses: actions/setup-node@v1
@@ -239,7 +239,7 @@ jobs:
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -302,7 +302,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ needs.data.outputs.go_version }}
 
@@ -313,7 +313,7 @@ jobs:
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -352,7 +352,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ needs.data.outputs.go_version }}
 
@@ -363,7 +363,7 @@ jobs:
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -403,7 +403,7 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
           go-version: ${{ needs.data.outputs.go_version }}
 
@@ -414,7 +414,7 @@ jobs:
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
@@ -460,9 +460,9 @@ jobs:
     needs: [ data, build, test-postman-sqlite, test-postman-mysql, test-postman-postgres, docker-build ]
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/download-artifact@v3
+      - uses: actions/download-artifact@v4
         with:
-          name: binaries
+          pattern: binaries-*
           path: binaries
       - uses: ncipollo/release-action@v1
         with:
