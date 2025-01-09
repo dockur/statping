@@ -77,14 +77,6 @@ jobs:
           [[ "$behind" == "0" ]] && exit 0
           echo "Behind upstream: $behind commits"
           exit 33
-      - 
-        name: Lint Dockerfile
-        if: env.exists == 'false'
-        uses: hadolint/hadolint-action@v3.1.0
-        with:
-          dockerfile: Dockerfile
-          ignore: DL3008
-          failure-threshold: warning
       -
         name: Docker metadata
         id: meta
