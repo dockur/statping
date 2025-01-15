@@ -97,6 +97,7 @@ jobs:
     needs: [ data, frontend ]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
         platform: [ linux ]
         arch: [ 386, amd64, arm-7, arm-6, arm64 ]
@@ -462,13 +463,15 @@ jobs:
     steps:
       - uses: actions/download-artifact@v4
         with:
-          pattern: binaries-*/*
+          pattern: binaries-*
           path: binaries
+      - name: list files
+        run: find .
       - uses: ncipollo/release-action@v1
         with:
           allowUpdates: true
           artifactErrorsFailBuild: true
-          artifacts: binaries/*
+          artifacts: binaries/binaries-*/*
           draft: true
           generateReleaseNotes: true
           omitBodyDuringUpdate: true
