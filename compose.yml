@@ -1,10 +1,10 @@
 services:
   statping:
-    container_name: statping
     image: dockurr/statping
+    container_name: statping
     ports:
       - 8080:8080
     volumes:
-      - /var/statping:/app
+      - ./statping:/app
     restart: always
     stop_grace_period: 1m
