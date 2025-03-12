@@ -26,12 +26,12 @@ Via Docker Compose:
 ```yaml
 services:
   statping:
-    container_name: statping
     image: dockurr/statping
+    container_name: statping
     ports:
       - 8080:8080
     volumes:
-      - /var/statping:/app
+      - ./statping:/app
     restart: always
     stop_grace_period: 1m
 ```
@@ -39,7 +39,7 @@ services:
 Via Docker CLI:
 
 ```bash
-docker run -it --rm -p 8080:8080 --stop-timeout 60 dockurr/statping
+docker run -it --rm --name statping -p 8080:8080 -v ${PWD:-.}/statping:/app --stop-timeout 60 dockurr/statping
 ```
 <hr/>
 
