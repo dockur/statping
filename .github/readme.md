@@ -21,7 +21,7 @@ An easy to use status page for your websites and applications.
 
 ## Usage  🐳
 
-Via Docker Compose:
+##### Via Docker Compose:
 
 ```yaml
 services:
@@ -36,7 +36,7 @@ services:
     stop_grace_period: 1m
 ```
 
-Via Docker CLI:
+##### Via Docker CLI:
 
 ```bash
 docker run -it --rm --name statping -p 8080:8080 -v ${PWD:-.}/statping:/app --stop-timeout 60 dockurr/statping
