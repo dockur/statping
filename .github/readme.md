@@ -41,6 +41,10 @@ services:
 ```bash
 docker run -it --rm --name statping -p 8080:8080 -v ${PWD:-.}/statping:/app --stop-timeout 60 dockurr/statping
 ```
+
+##### Via Github Codespaces:
+
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dockur/statping)
 <hr/>
 
 <img style="margin-right:10px;float:left;width:320px;height:235px;" align="left"  width="320" height="235" src="https://statping-ng.github.io/assets/external/statupsiterun.gif" />
