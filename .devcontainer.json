@@ -1,0 +1,6 @@
+{
+  "name": "statping",
+  "service": "statping",
+  "forwardPorts": [8080],
+  "dockerComposeFile": "compose.yml"
+}
