@@ -3,13 +3,13 @@ package handlers
 import (
 	"encoding/json"
 	"fmt"
-	"github.com/statping-ng/statping-ng/types/errors"
 	"html/template"
 	"net/http"
 	"path"
 	"time"
 
 	"github.com/statping-ng/statping-ng/source"
+	"github.com/statping-ng/statping-ng/types/errors"
 	"github.com/statping-ng/statping-ng/utils"
 )
 
@@ -73,7 +73,11 @@ func IsReadAuthenticated(r *http.Request) bool {
 	if ok := hasAuthorizationHeader(r); ok {
 		return true
 	}
-	return IsFullAuthenticated(r)
+	_, err := getJwtToken(r)
+	if err == nil {
+		return true
+	}
+	return false
 }
 
 // IsFullAuthenticated returns true if the HTTP request is authenticated. You can set the environment variable GO_ENV=test

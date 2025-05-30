@@ -24,9 +24,9 @@ Statping-ng aims to be an updated drop-in replacement of statping after developm
   <a href="https://github.com/statping-ng/statping-ng/blob/stable/LICENSE"><img alt="License" src="https://img.shields.io/github/license/statping-ng/statping-ng?color=success&style=for-the-badge&logo" /></a>
 </p><p align="center" style="text-align:center">
   <img alt="Last Commit" src="https://img.shields.io/github/last-commit/statping-ng/statping-ng?style=for-the-badge&logo=github" />
-  <img alt="Dev Build Status" src="https://img.shields.io/github/workflow/status/statping-ng/statping-ng/1.%20Development%20Build%20and%20Testing?label=Dev&style=for-the-badge&logo=github" />
-  <img alt="Unstable Build Status" src="https://img.shields.io/github/workflow/status/statping-ng/statping-ng/2.%20Unstable%20Build,%20Test%20and%20Deploy?label=Unstable&style=for-the-badge&logo=github" />
-  <img alt="Stable Build Status" src="https://img.shields.io/github/workflow/status/statping-ng/statping-ng/3.%20Stable%20Build,%20Test%20and%20Deploy?label=Stable&style=for-the-badge&logo=github" />
+  <img alt="Dev Build Status" src="https://img.shields.io/github/actions/workflow/status/statping-ng/statping-ng/build.yml?branch=dev&label=Dev&style=for-the-badge&logo=github" />
+  <img alt="Unstable Build Status" src="https://img.shields.io/github/actions/workflow/status/statping-ng/statping-ng/build.yml?branch=unstable&label=Unstable&style=for-the-badge&logo=github" />
+  <img alt="Stable Build Status" src="https://img.shields.io/github/actions/workflow/status/statping-ng/statping-ng/build.yml?branch=stable&label=Stable&style=for-the-badge&logo=github" />
 </p><p align="center" style="text-align:center">
   <a href="https://hub.docker.com/r/adamboutcher/statping-ng"><img alt="Docker Pulls" src="https://img.shields.io/docker/pulls/adamboutcher/statping-ng?style=for-the-badge&logo=docker&logoColor=white" /></a>
   <a href="https://hub.docker.com/r/adamboutcher/statping-ng"><img alt="Docker Image Size" src="https://img.shields.io/docker/image-size/adamboutcher/statping-ng/latest?style=for-the-badge&logo=docker&logoColor=white" /></a>

@@ -33,6 +33,7 @@ type Text struct {
 	Cn  string
 	Ko  string
 	It  string
+	Sv  string
 }
 
 func main() {
@@ -92,6 +93,7 @@ func main() {
 	CreateJS("chinese", translations)
 	CreateJS("italian", translations)
 	CreateJS("korean", translations)
+	CreateJS("swedish", translations)
 }
 
 func Translate(val, language string) string {
@@ -119,6 +121,7 @@ func TranslateAll(key, en string) *Text {
 		Cn:  Translate(en, "zh"),
 		Ko:  Translate(en, "ko"),
 		It:  Translate(en, "it"),
+		Sv:  Translate(en, "sv"),
 	}
 }
 
@@ -142,6 +145,8 @@ func (t *Text) String(lang string) string {
 		return fmt.Sprintf(`    %s: "%s"`, t.Key, t.Ko)
 	case "italian":
 		return fmt.Sprintf(`    %s: "%s"`, t.Key, t.It)
+	case "swedish":
+		return fmt.Sprintf(`    %s: "%s"`, t.Key, t.Sv)
 	default:
 		return fmt.Sprintf(`    %s: "%s"`, t.Key, t.En)
 	}
@@ -180,6 +185,8 @@ func GoLine(lang string, t *Text) string {
 		return fmt.Sprintf(`		%s["%s"] = "%s"`, lang, t.Key, t.Ko)
 	case "italian":
 		return fmt.Sprintf(`		%s["%s"] = "%s"`, lang, t.Key, t.It)
+	case "swedish":
+		return fmt.Sprintf(`		%s["%s"] = "%s"`, lang, t.Key, t.Sv)
 	default:
 		return fmt.Sprintf(`		%s["%s"] = "%s"`, lang, t.Key, t.En)
 	}

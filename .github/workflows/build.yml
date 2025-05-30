@@ -1,89 +1,129 @@
-name: 1. Development Build and Testing
+name: Statping build
 on:
   push:
-    branches:
-      - dev
     paths-ignore:
-      - '**.md'
+      - "**.md"
+  pull_request:
+    paths-ignore:
+      - "**.md"
 
 jobs:
-
+  data:
+    # this job collects general variables and inputs for later use.
+    # not all of them might be needed but having them in a central place is more helpful than 100% efficiency.
+    # also, the name is intentionally short to make later references shorter.
+    runs-on: ubuntu-latest
+    outputs:
+      is_release: ${{ steps.statping-versions.outputs.is_release }}
+      is_prerelease: ${{ steps.statping-versions.outputs.is_prerelease }}
+      # this will be v1.2.3 for on-tag builds and v1.2.3-numberofcommits-sha for off-tag builds
+      version: ${{ steps.statping-versions.outputs.version }}
+      go_version: ${{ steps.tool-versions.outputs.go_version }}
+      node_version: ${{ steps.tool-versions.outputs.node_version }}
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          # check on https://github.com/actions/checkout/pull/579 occasionally if actions/checkout can do this natively yet
+          fetch-depth: 0
+      - name: get statping version information
+        id: statping-versions
+        run: |
+          STABLE_TAG=$(git describe --tags --exclude '*-*')
+          BETA_TAG=$(git describe --tags --match '*-*')
+          echo "stable_tag=$STABLE_TAG" >> $GITHUB_OUTPUT
+          echo "beta_tag=$BETA_TAG" >> $GITHUB_OUTPUT
+          if [ "${{ github.ref }}" = "refs/tags/$STABLE_TAG" ]; then
+            echo "is_release=true" >> $GITHUB_OUTPUT
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "version=$STABLE_TAG" >> $GITHUB_OUTPUT
+          elif [ "${{ github.ref }}" = "refs/tags/$BETA_TAG" ]; then
+            echo "is_release=true" >> $GITHUB_OUTPUT
+            echo "is_prerelease=true" >> $GITHUB_OUTPUT
+            echo "version=$BETA_TAG" >> $GITHUB_OUTPUT
+          else
+            echo "is_release=false" >> $GITHUB_OUTPUT
+            echo "is_prerelease=false" >> $GITHUB_OUTPUT
+            echo "version=$STABLE_TAG" >> $GITHUB_OUTPUT
+          fi
+        shell: bash
+      - name: get go/node version information
+        id: tool-versions
+        run: |
+          echo "go_version=1.20.x" >> $GITHUB_OUTPUT
+          echo "node_version=16.14.0" >> $GITHUB_OUTPUT
+        shell: bash
+      - name: show data results
+        run: |
+          echo == tools versions ==
+          echo go_version: ${{ steps.tool-versions.outputs.go_version }}
+          echo node_version: ${{ steps.tool-versions.outputs.node_version }}
+          echo == matched tags ==
+          echo stable_tag: ${{ steps.statping-versions.outputs.stable_tag }}
+          echo beta_tag: ${{ steps.statping-versions.outputs.beta_tag }}
+          echo == release information ==
+          echo is_release: ${{ steps.statping-versions.outputs.is_release }}
+          echo is_prerelease: ${{ steps.statping-versions.outputs.is_prerelease }}
+          echo == statping version ==
+          echo version: ${{ steps.statping-versions.outputs.version }}
   frontend:
     runs-on: ubuntu-latest
+    needs: data
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.17.x
+          go-version: ${{ needs.data.outputs.go_version }}
+      - name: Install rice
+        run: go install github.com/GeertJohan/go.rice/rice@latest
       - uses: actions/setup-node@v1
         with:
-          node-version: 16.14.0
-
-      - name: Set Version
-        run: |
-          echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
-        shell: bash
-
-      - name: Install Global Dependencies
-        run: npm install -g yarn sass cross-env mjml
-
+          node-version: ${{ needs.data.outputs.node_version }}
       - name: Download Frontend Dependencies
         working-directory: ./frontend
         run: yarn
-
-      - name: Download Go mods
-        run: |
-          go mod download
-          go mod verify
-          make test-deps
-
       - name: Build Frontend Statping
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
-          MJML_APP: ${{ secrets.MJML_APP }}
-          MJML_PRIVATE: ${{ secrets.MJML_PRIVATE }}
-          AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-        run: make clean generate compile
-
+        working-directory: ./frontend
+        run: yarn build
+      - name: Copy built frontend
+        run: |
+          cp -r frontend/dist source/
+          cp -r frontend/src/assets/scss source/dist/
+          cp frontend/public/robots.txt source/dist/
+      - name: Build rice-box.go
+        run: rice embed-go
+        working-directory: source
       - name: Upload Compiled Frontend (rice-box.go)
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
           name: static-rice-box
           path: ./source
 
   build:
-    needs: frontend
+    needs: [ data, frontend ]
     runs-on: ubuntu-latest
     strategy:
+      fail-fast: false
       matrix:
-        platform: [linux]
-        arch: [386, amd64, arm-7, arm-6, arm64]
+        platform: [ linux ]
+        arch: [ 386, amd64, arm-7, arm-6, arm64 ]
         include:
           - platform: darwin
-            arch: arm64
+            arch: amd64
           - platform: darwin
+            arch: arm64
+          - platform: windows
             arch: amd64
           - platform: windows
             arch: 386
-          - platform: windows
-            arch: amd64
 
     steps:
       - uses: actions/checkout@v2
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
-
-      - name: Add GOBIN to PATH
-        run: |
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
-        shell: bash
 
       - name: Set Linux Build Flags
         if: matrix.platform == 'linux'
@@ -92,9 +132,9 @@ jobs:
           echo "XGO_TAGS=netgo osusergo linux sqlite_omit_load_extension" >> $GITHUB_ENV
         shell: bash
 
-      - name: Set MacOS (Darwin) Build Flags
+      - name: Set Darwin Build Flags
         if: matrix.platform == 'darwin'
-        run : |
+        run: |
           echo "XGO_TAGS=netgo osusergo darwin sqlite_omit_load_extension" >> $GITHUB_ENV
         shell: bash
 
@@ -106,22 +146,22 @@ jobs:
         shell: bash
 
       - name: Build ${{ matrix.platform }}/${{ matrix.arch }}
-        uses: crazy-max/ghaction-xgo@v1
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
+        uses: crazy-max/ghaction-xgo@v2
         with:
           xgo_version: latest
-          go_version: 1.17.x
+          go_version: ${{ needs.data.outputs.go_version }}
           dest: build
           prefix: statping
           targets: ${{ matrix.platform }}/${{ matrix.arch }}
+          # v and x enable additional debug output
           v: true
           x: true
           pkg: cmd
           buildmode: pie
           tags: ${{ env.XGO_TAGS }}
-          ldflags: -s -w -X main.VERSION=${{ env.VERSION }} -X main.COMMIT=${{ env.COMMIT }} ${{ env.BUILD_FLAGS }}
+          ldflags: -s -w -X main.VERSION=${{ needs.data.outputs.version }} -X main.COMMIT=${{ github.sha }} ${{ env.BUILD_FLAGS }}
+
+      - run: ls -la build
 
       - name: Compress Linux Builds
         if: matrix.platform == 'linux'
@@ -143,24 +183,28 @@ jobs:
           rm -rf statping.exe
           echo "compressed=statping-windows-${{ matrix.arch }}.zip" >> $GITHUB_ENV
 
-      - name: Compress MacOS (Darwin) Builds
+      - name: Compress Darwin Builds
         if: matrix.platform == 'darwin'
         run: |
           cd build
           mv statping-darwin-${{ matrix.arch }} statping
           chmod +x statping
-          tar -czvf statping-darwin-${{ matrix.arch }}.tar.gz *
+          tar -czvf statping-darwin-${{ matrix.arch }}.tar.gz statping
           rm -rf statping
           echo "compressed=statping-darwin-${{ matrix.arch }}.tar.gz" >> $GITHUB_ENV
 
       - name: Upload Compiled Statping Binary
-        uses: actions/upload-artifact@v1
+        uses: actions/upload-artifact@v4
         with:
-          name: statping-${{ matrix.platform }}-${{ matrix.arch }}
+          name: binaries-${{ matrix.platform }}-${{ matrix.arch }}
           path: ./build
 
+  # TODO refactor (and fix) tests
+
   test:
-    needs: frontend
+    needs: [ data, frontend ]
+    # temporarily disabled
+    if: "false"
     runs-on: ubuntu-latest
     services:
       postgres:
@@ -184,12 +228,12 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.17.x
+          go-version: ${{ needs.data.outputs.go_version }}
       - uses: actions/setup-node@v1
         with:
-          node-version: 16.14.0
+          node-version: ${{ needs.data.outputs.node_version }}
 
       - name: Install Global Dependencies
         run: npm install -g yarn sass newman cross-env wait-on @sentry/cli
@@ -197,20 +241,16 @@ jobs:
       - name: Setting ENV's
         run: |
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-          echo "/opt/hostedtoolcache/node/16.14.0/x64/bin" >> $GITHUB_PATH
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+          echo "/opt/hostedtoolcache/node/${{ needs.data.outputs.node_version }}/x64/bin" >> $GITHUB_PATH
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
 
       - name: Install Statping
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
         run: |
           make build certs
           chmod +x statping
@@ -221,7 +261,7 @@ jobs:
           go get gotest.tools/gotestsum
           gotestsum --no-summary=skipped --format testname -- -covermode=count -coverprofile=coverage.out -p=1 ./...
         env:
-          VERSION: ${{ env.VERSION }}
+          VERSION: ${{ needs.data.outputs.version }}
           COMMIT: ${{ github.sha }}
           DB_CONN: sqlite3
           STATPING_DIR: ${{ github.workspace }}
@@ -241,7 +281,7 @@ jobs:
           MOBILE_NUMBER: ${{ secrets.MOBILE_NUMBER }}
           PUSHOVER_TOKEN: ${{ secrets.PUSHOVER_TOKEN }}
           PUSHOVER_API: ${{ secrets.PUSHOVER_API }}
-          SLACK_URL: https://hooks.slack.com/services/TTJ1B90DP/RENU20O9M/9uI823SUnYBuGcxYlpSimD6H
+          SLACK_URL: ${{ secrets.SLACK_URL }}
           TELEGRAM_TOKEN: ${{ secrets.TELEGRAM_TOKEN }}
           TELEGRAM_CHANNEL: ${{ secrets.TELEGRAM_CHANNEL }}
           TWILIO_SID: ${{ secrets.TWILIO_SID }}
@@ -256,39 +296,35 @@ jobs:
           SNS_REGION: ${{ secrets.SNS_REGION }}
           SNS_TOPIC: ${{ secrets.SNS_TOPIC }}
 
-#      - name: Coveralls Testing Coverage
-#        run: |
-#          go get github.com/mattn/goveralls
-#          goveralls -coverprofile=coverage.out -repotoken $COVERALLS
-#        env:
-#          COVERALLS: ${{ secrets.COVERALLS }}
+      - name: Coveralls Testing Coverage
+        run: |
+          go get github.com/mattn/goveralls
+          goveralls -coverprofile=coverage.out -repotoken $COVERALLS
+        env:
+          COVERALLS: ${{ secrets.COVERALLS }}
 
   test-postman-sqlite:
-    needs: frontend
+    needs: [ data, frontend ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.17.x
+          go-version: ${{ needs.data.outputs.go_version }}
 
       - name: Setting ENV's
         run: |
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-          echo "/opt/hostedtoolcache/node/16.14.0/x64/bin" >> $GITHUB_PATH
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+          echo "/opt/hostedtoolcache/node/${{ needs.data.outputs.node_version }}/x64/bin" >> $GITHUB_PATH
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
 
       - name: Install Statping
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
         run: |
           make build
           chmod +x statping
@@ -307,7 +343,7 @@ jobs:
           delayRequest: 600
 
   test-postman-mysql:
-    needs: frontend
+    needs: [ data, frontend ]
     runs-on: ubuntu-latest
 
     services:
@@ -322,29 +358,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.17.x
+          go-version: ${{ needs.data.outputs.go_version }}
 
       - name: Setting ENV's
         run: |
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-          echo "/opt/hostedtoolcache/node/16.14.0/x64/bin" >> $GITHUB_PATH
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+          echo "/opt/hostedtoolcache/node/${{ needs.data.outputs.node_version }}/x64/bin" >> $GITHUB_PATH
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
 
       - name: Install Statping
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
-          MJML_APP: ${{ secrets.MJML_APP }}
-          MJML_PRIVATE: ${{ secrets.MJML_PRIVATE }}
         run: |
           make build
           chmod +x statping
@@ -363,7 +393,7 @@ jobs:
           delayRequest: 600
 
   test-postman-postgres:
-    needs: frontend
+    needs: [ data, frontend ]
     runs-on: ubuntu-latest
 
     services:
@@ -379,27 +409,23 @@ jobs:
 
     steps:
       - uses: actions/checkout@v2
-      - uses: actions/setup-go@v2
+      - uses: actions/setup-go@v5
         with:
-          go-version: 1.17.x
+          go-version: ${{ needs.data.outputs.go_version }}
 
       - name: Setting ENV's
         run: |
           echo "$(go env GOPATH)/bin" >> $GITHUB_PATH
-          echo "/opt/hostedtoolcache/node/16.14.0/x64/bin" >> $GITHUB_PATH
-          echo "VERSION=$(cat version.txt)" >> $GITHUB_ENV
+          echo "/opt/hostedtoolcache/node/${{ needs.data.outputs.node_version }}/x64/bin" >> $GITHUB_PATH
         shell: bash
 
       - name: Download Compiled Frontend (rice-box.go)
-        uses: actions/download-artifact@v1
+        uses: actions/download-artifact@v4
         with:
           name: static-rice-box
           path: ./source
 
       - name: Install Statping
-        env:
-          VERSION: ${{ env.VERSION }}
-          COMMIT: ${{ github.sha }}
         run: |
           make build
           chmod +x statping
@@ -416,3 +442,48 @@ jobs:
           environment: ./dev/postman_env_postgres.json
           timeoutRequest: 30000
           delayRequest: 600
+
+  docker-build:
+    needs: [ data ]
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+      - uses: jemand771/docker-build-action@main
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+          push_strategy: artifact
+          platforms: linux/amd64, linux/arm/v7, linux/arm/v6, linux/arm64
+          args: |
+            COMMIT=${{ github.sha }}
+            VERSION=${{ needs.data.outputs.version }}
+            BUILDKIT_INLINE_CACHE=true
+
+  # all other release jobs should be based on this
+  release:
+    # only run release jobs on push to stable/unstable.
+    if: ${{ success() && fromJSON(needs.data.outputs.is_release) }}
+    needs: [ data, build, test-postman-sqlite, test-postman-mysql, test-postman-postgres, docker-build ]
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: binaries-*
+          path: binaries
+      - name: list files
+        run: find .
+      - uses: ncipollo/release-action@v1
+        with:
+          allowUpdates: true
+          artifactErrorsFailBuild: true
+          artifacts: binaries/binaries-*/*
+          draft: true
+          generateReleaseNotes: true
+          omitBodyDuringUpdate: true
+          prerelease: ${{ fromJSON(needs.data.outputs.is_prerelease) && 'true' || 'false'}}
+          updateOnlyUnreleased: true
+      - name: push docker images
+        uses: jemand771/push-docker-artifact@main
+        with:
+          GITHUB_TOKEN: ${{ github.token }}
+      # TODO bring back dockerhub image

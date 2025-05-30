@@ -19,7 +19,7 @@ import (
 
 var (
 	// VERSION stores the current version of Statping
-	VERSION string
+	VERSION string = "dev"
 	// COMMIT stores the git commit hash for this version of Statping
 	COMMIT  string
 	log     = utils.Log.WithField("type", "cmd")
@@ -83,7 +83,7 @@ func start() {
 		log.Errorf("Statping Log Error: %v\n", err)
 	}
 
-	log.Info(fmt.Sprintf("Starting Statping v%s", VERSION))
+	log.Info(fmt.Sprintf("Starting Statping %s", VERSION))
 
 	utils.Params.Set("SERVER_IP", ipAddress)
 	utils.Params.Set("SERVER_PORT", port)

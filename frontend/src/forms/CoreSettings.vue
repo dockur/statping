@@ -47,6 +47,7 @@
                         <option value="it">Italian</option>
                         <option value="ko">Korean</option>
                         <option value="zh">Chinese</option>
+                        <option value="sv">Swedish</option>
                     </select>
                 </div>
 

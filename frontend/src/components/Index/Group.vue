@@ -4,7 +4,10 @@
         <div class="list-group online_list mb-4">
 
             <div v-for="(service, index) in services" v-bind:key="index" class="list-group-item list-group-item-action">
-                <router-link class="no-decoration font-3" :to="serviceLink(service)">{{service.name}}</router-link>
+                <router-link class="no-decoration font-3" :to="serviceLink(service)">
+                  {{service.name}}
+                  <MessagesIcon :messages="service.messages"/>
+                </router-link>
                 <span class="badge text-uppercase float-right" :class="{'bg-success': service.online, 'bg-danger': !service.online }">
                     {{service.online ? $t('online') : $t('offline')}}
                 </span>
@@ -22,12 +25,14 @@
 <script>
     const GroupServiceFailures = () => import(/* webpackChunkName: "index" */ './GroupServiceFailures');
     const IncidentsBlock = () => import(/* webpackChunkName: "index" */ './IncidentsBlock');
+    const MessagesIcon = () => import(/* webpackChunkName: "index" */ '@/components/Index/MessagesIcon')
 
 export default {
   name: 'Group',
   components: {
       IncidentsBlock,
-      GroupServiceFailures
+      GroupServiceFailures,
+      MessagesIcon
   },
   props: {
     group: {

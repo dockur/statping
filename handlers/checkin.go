@@ -25,8 +25,9 @@ func findCheckin(r *http.Request) (*checkins.Checkin, string, error) {
 	return checkin, id, nil
 }
 
-func apiAllCheckinsHandler(w http.ResponseWriter, r *http.Request) {
-	returnJson(checkins.All(), w, r)
+func apiAllCheckinsHandler(r *http.Request) interface{} {
+	checkins := checkins.All()
+	return checkins
 }
 
 func apiCheckinHandler(w http.ResponseWriter, r *http.Request) {

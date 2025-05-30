@@ -68,7 +68,7 @@
                         <font-awesome-icon icon="code-branch" class="mr-3"/> {{$t('repo')}}
                     </a>
 
-                  <span class="small text-dim text-center mt-5">Statping-ng v{{core.version}}<br>
+                  <span class="small text-dim text-center mt-5">Statping-ng {{core.version}}<br>
                     <a class="small text-muted no-decoration" v-if="core.commit" v-bind:href="`https://github.com/statping-ng/statping-ng/commit/${core.commit}`">{{core.commit.slice(0,8)}}</a>
                   </span>
 

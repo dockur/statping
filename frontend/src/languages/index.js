@@ -8,6 +8,7 @@ import japanese from "./japanese";
 import chinese from "./chinese";
 import korean from "./korean";
 import italian from "./italian";
+import swedish from "./swedish";
 
 const language = {
   en: english,
@@ -20,6 +21,7 @@ const language = {
   zh: chinese,
   ko: korean,
   it: italian,
+  sv: swedish,
 }
 
 export default language
