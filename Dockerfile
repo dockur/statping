@@ -1,3 +1,5 @@
+# syntax=docker/dockerfile:1
+
 FROM node:16.14.0-alpine AS frontend
 LABEL maintainer="Statping-ng (https://github.com/statping-ng)"
 ARG BUILDPLATFORM
