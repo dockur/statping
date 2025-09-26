@@ -141,7 +141,7 @@ jobs:
         shell: bash
 
       - name: Build ${{ matrix.platform }}/${{ matrix.arch }}
-        uses: crazy-max/ghaction-xgo@v2
+        uses: crazy-max/ghaction-xgo@v3
         with:
           xgo_version: latest
           go_version: ${{ needs.data.outputs.go_version }}
