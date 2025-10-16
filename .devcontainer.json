@@ -1,6 +1,15 @@
 {
-  "name": "statping",
+  "name": "Statping",
   "service": "statping",
-  "forwardPorts": [8080],
-  "dockerComposeFile": "compose.yml"
+  "forwardPorts": [8080],  
+  "portsAttributes": {
+    "8080": {
+      "label": "Web",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "silent"
+  }, 
+  "dockerComposeFile": "codespaces.yml"
 }
