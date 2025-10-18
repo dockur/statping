@@ -9,7 +9,7 @@
     }
   },
   "otherPortsAttributes": {
-    "onAutoForward": "silent"
+    "onAutoForward": "ignore"
   }, 
   "dockerComposeFile": "codespaces.yml"
 }
