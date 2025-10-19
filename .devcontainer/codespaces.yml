@@ -1,7 +1,7 @@
 services:
   statping:
-    image: dockurr/statping
     container_name: statping
+    image: ghcr.io/dockur/statping
     ports:
       - 8080:8080
     volumes:
