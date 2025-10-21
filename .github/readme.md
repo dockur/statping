@@ -39,7 +39,7 @@ services:
 ##### Via Docker CLI:
 
 ```bash
-docker run -it --rm --name statping -p 8080:8080 -v "${PWD:-.}/statping:/app" --stop-timeout 60 dockurr/statping
+docker run -it --rm --name statping -p 8080:8080 -v "${PWD:-.}/statping:/app" --stop-timeout 60 docker.io/dockurr/statping
 ```
 
 ##### Via Github Codespaces:
