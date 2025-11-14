@@ -11,6 +11,5 @@
   "otherPortsAttributes": {
     "onAutoForward": "ignore"
   }, 
-  "dockerComposeFile": "codespaces.yml",
-  "workspaceFolder": "/workspaces/statping"
+  "dockerComposeFile": "codespaces.yml"
 }
