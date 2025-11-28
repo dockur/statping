@@ -1,6 +1,6 @@
 module github.com/statping-ng/statping-ng
 
-go 1.19
+go 1.23.0
 
 require (
 	github.com/GeertJohan/go.rice v1.0.3
@@ -11,7 +11,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/foomo/simplecert v1.7.5
 	github.com/foomo/tlsconfig v0.0.0-20180418120404-b67861b076c9
-	github.com/getsentry/sentry-go v0.5.1
+	github.com/getsentry/sentry-go v0.40.0
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-ping/ping v1.1.0
 	github.com/gorilla/mux v1.7.4
@@ -24,7 +24,7 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
 	github.com/statping-ng/emails v1.0.3
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.8.4
 	github.com/t-tiger/gorm-bulk-insert/v2 v2.0.1
 	golang.org/x/crypto v0.4.0
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
@@ -59,7 +59,7 @@ require (
 	github.com/exoscale/egoscale v0.18.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-acme/lego/v3 v3.7.0 // indirect
-	github.com/go-errors/errors v1.0.2 // indirect
+	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-resty/resty/v2 v2.2.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
@@ -123,8 +123,8 @@ require (
 	go.uber.org/ratelimit v0.1.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
 	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/sys v0.18.0 // indirect
+	golang.org/x/text v0.14.0 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 	google.golang.org/api v0.21.0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
