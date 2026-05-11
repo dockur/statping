@@ -19,7 +19,7 @@ jobs:
     steps:
       - 
         name: Run graphql query to get tag
-        uses: octokit/graphql-action@v2.x
+        uses: octokit/graphql-action@v3.x
         id: latest_tag
         with:
           variables: |
