@@ -212,6 +212,8 @@ github.com/go-mail/mail v2.3.1+incompatible/go.mod h1:VPWjmmNyRsWXQZHVHT3g0YbIIN
 github.com/go-martini/martini v0.0.0-20170121215854-22fa46961aab/go.mod h1:/P9AEU963A2AYjv4d1V5eVL1CQbEJq6aCNHDDjibzu8=
 github.com/go-ping/ping v1.1.0 h1:3MCGhVX4fyEUuhsfwPrsEdQw6xspHkv5zHsiSoDFZYw=
 github.com/go-ping/ping v1.1.0/go.mod h1:xIFjORFzTxqIV/tDVGO4eDy/bLuSyawEeojSm3GfRGk=
+github.com/go-ping/ping v1.2.0 h1:vsJ8slZBZAXNCK4dPcI2PEE9eM9n9RbXbGouVQ/Y4yQ=
+github.com/go-ping/ping v1.2.0/go.mod h1:xIFjORFzTxqIV/tDVGO4eDy/bLuSyawEeojSm3GfRGk=
 github.com/go-resty/resty/v2 v2.1.1-0.20191201195748-d7b97669fe48/go.mod h1:dZGr0i9PLlaaTD4H/hoZIDjQ+r6xq8mgbRzHZf7f2J8=
 github.com/go-resty/resty/v2 v2.2.0 h1:vgZ1cdblp8Aw4jZj3ZsKh6yKAlMg3CHMrqFSFFd+jgY=
 github.com/go-resty/resty/v2 v2.2.0/go.mod h1:nYW/8rxqQCmI3bPz9Fsmjbr2FBjGuR2Mzt6kDh3zZ7w=
