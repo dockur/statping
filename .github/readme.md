@@ -120,7 +120,7 @@ Having a straight forward dashboard makes Statping-ng that much better. Quickly 
 <img style="margin:35px 0;width:100%;height:250px;" align="center" width="100%" height="250" src="https://statping-ng.github.io/assets/external/statupsc2.png" />
 
 ## Stars 🌟
-[![Stars](https://starchart.cc/dockur/statping.svg?variant=adaptive)](https://starchart.cc/dockur/statping)
+[![Stargazers](https://raw.githubusercontent.com/star-stats/stars/refs/heads/data/charts/dockur-statping.svg)](https://github.com/dockur/statping/stargazers)
 
 [build_url]: https://github.com/dockur/statping/
 [hub_url]: https://hub.docker.com/r/dockurr/statping/
