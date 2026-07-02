@@ -42,7 +42,7 @@ services:
 docker run -it --rm --name statping -p 8080:8080 -v "${PWD:-.}/statping:/app" --stop-timeout 60 docker.io/dockurr/statping
 ```
 
-##### Via Github Codespaces:
+##### Via GitHub Codespaces:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dockur/statping)
 <hr/>
