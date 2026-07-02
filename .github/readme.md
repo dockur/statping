@@ -21,7 +21,7 @@ An easy to use status page for your websites and applications.
 
 ## Usage  🐳
 
-##### Via Docker Compose:
+##### Docker Compose:
 
 ```yaml
 services:
@@ -36,13 +36,13 @@ services:
     stop_grace_period: 1m
 ```
 
-##### Via Docker CLI:
+##### Docker CLI:
 
 ```bash
 docker run -it --rm --name statping -p 8080:8080 -v "${PWD:-.}/statping:/app" --stop-timeout 60 docker.io/dockurr/statping
 ```
 
-##### Via GitHub Codespaces:
+##### GitHub Codespaces:
 
 [![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://codespaces.new/dockur/statping)
 <hr/>
