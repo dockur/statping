@@ -16,8 +16,12 @@ An easy to use status page for your websites and applications.
 
 ## Features ✨
 
-  - Renders a beautiful status page
-  - Allows you to use MySQL, Postgres or SQLite
+- Provides a status page and monitoring server
+- Monitors websites, services, and applications
+- Displays uptime, latency, and status history
+- Supports SQLite, MySQL, and PostgreSQL databases
+- Supports notifications through Slack, email, Twilio, and more
+- Lightweight Alpine-based image
 
 ## Usage  🐳
 
