@@ -20,15 +20,15 @@
     "@fortawesome/free-solid-svg-icons": "^5.12.0",
     "@fortawesome/vue-fontawesome": "^0.1.9",
     "apexcharts": "^3.23.0",
-    "axios": "^0.19.1",
+    "axios": "^0.32.0",
     "codemirror-colorpicker": "^1.9.66",
     "core-js": "^3.6.5",
     "date-fns": "^2.9.0",
     "js-beautify": "^1.11.0",
     "querystring": "^0.2.0",
     "sass": "^1.26.10",
-    "semver": "^7.3.2",
-    "vue": "^2.6.11",
+    "semver": "^7.8.5",
+    "vue": "^3.0.0",
     "vue-apexcharts": "^1.6.0",
     "vue-clipboard2": "^0.3.1",
     "vue-codemirror": "^4.0.6",
@@ -42,7 +42,7 @@
     "vuex": "^3.1.2"
   },
   "devDependencies": {
-    "@babel/core": "^7.9.0",
+    "@babel/core": "^7.29.6",
     "@babel/plugin-proposal-class-properties": "~7.3",
     "@babel/plugin-proposal-decorators": "~7.3",
     "@babel/plugin-proposal-json-strings": "~7.2",
@@ -95,7 +95,7 @@
     "webpack": "~4.29",
     "webpack-bundle-analyzer": "^3.7.0",
     "webpack-cli": "~3.2",
-    "webpack-dev-server": "~3.1",
+    "webpack-dev-server": "~5.2",
     "webpack-hot-middleware": "~2.24",
     "webpack-merge": "~4.2"
   }
