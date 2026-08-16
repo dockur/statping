@@ -30,8 +30,10 @@ require (
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
 	google.golang.org/grpc v1.28.1
 	gopkg.in/natefinch/lumberjack.v2 v2.0.0
-	gopkg.in/yaml.v2 v2.3.0
+	gopkg.in/yaml.v3 v3.0.1
 )
+
+require gopkg.in/yaml.v2 v2.3.0
 
 require (
 	cloud.google.com/go v0.56.0 // indirect
@@ -135,5 +137,4 @@ require (
 	gopkg.in/ini.v1 v1.55.0 // indirect
 	gopkg.in/ns1/ns1-go.v2 v2.3.0 // indirect
 	gopkg.in/square/go-jose.v2 v2.5.0 // indirect
-	gopkg.in/yaml.v3 v3.0.1 // indirect
 )
