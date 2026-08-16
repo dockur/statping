@@ -1,6 +1,6 @@
 module github.com/statping-ng/statping-ng
 
-go 1.19
+go 1.25.0
 
 require (
 	github.com/GeertJohan/go.rice v1.0.3
@@ -11,7 +11,7 @@ require (
 	github.com/fatih/structs v1.1.0
 	github.com/foomo/simplecert v1.7.5
 	github.com/foomo/tlsconfig v0.0.0-20180418120404-b67861b076c9
-	github.com/getsentry/sentry-go v0.5.1
+	github.com/getsentry/sentry-go v0.48.0
 	github.com/go-mail/mail v2.3.1+incompatible
 	github.com/go-ping/ping v1.1.0
 	github.com/gorilla/mux v1.7.4
@@ -24,7 +24,7 @@ require (
 	github.com/spf13/cobra v1.0.0
 	github.com/spf13/viper v1.6.3
 	github.com/statping-ng/emails v1.0.3
-	github.com/stretchr/testify v1.8.1
+	github.com/stretchr/testify v1.11.1
 	github.com/t-tiger/gorm-bulk-insert/v2 v2.0.1
 	golang.org/x/crypto v0.4.0
 	golang.org/x/oauth2 v0.0.0-20200107190931-bf48bf16ab8d
@@ -53,20 +53,20 @@ require (
 	github.com/cloudflare/cloudflare-go v0.11.6 // indirect
 	github.com/cpu/goacmedns v0.0.2 // indirect
 	github.com/daaku/go.zipexe v1.0.2 // indirect
-	github.com/davecgh/go-spew v1.1.1 // indirect
+	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dimchansky/utfbom v1.1.0 // indirect
 	github.com/dnsimple/dnsimple-go v0.60.0 // indirect
 	github.com/exoscale/egoscale v0.18.1 // indirect
 	github.com/fsnotify/fsnotify v1.5.4 // indirect
 	github.com/go-acme/lego/v3 v3.7.0 // indirect
-	github.com/go-errors/errors v1.0.2 // indirect
+	github.com/go-errors/errors v1.4.2 // indirect
 	github.com/go-resty/resty/v2 v2.2.0 // indirect
 	github.com/go-sql-driver/mysql v1.5.0 // indirect
 	github.com/gofrs/uuid v3.2.0+incompatible // indirect
 	github.com/golang/groupcache v0.0.0-20200121045136-8c9f03a8e57e // indirect
 	github.com/golang/protobuf v1.4.2 // indirect
 	github.com/gomarkdown/markdown v0.0.0-20221013030248-663e2500819c // indirect
-	github.com/google/go-cmp v0.5.9 // indirect
+	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/go-querystring v1.0.0 // indirect
 	github.com/google/uuid v1.3.0 // indirect
 	github.com/googleapis/gax-go/v2 v2.0.5 // indirect
@@ -104,7 +104,7 @@ require (
 	github.com/ovh/go-ovh v0.0.0-20181109152953-ba5adb4cf014 // indirect
 	github.com/patrickmn/go-cache v2.1.0+incompatible // indirect
 	github.com/pelletier/go-toml v1.7.0 // indirect
-	github.com/pmezard/go-difflib v1.0.0 // indirect
+	github.com/pmezard/go-difflib v1.0.1-0.20181226105442-5d4384ee4fb2 // indirect
 	github.com/prometheus/client_model v0.0.0-20190812154241-14fe0d1b01d4 // indirect
 	github.com/prometheus/common v0.6.0 // indirect
 	github.com/prometheus/procfs v0.0.3 // indirect
@@ -122,9 +122,9 @@ require (
 	go.opencensus.io v0.22.3 // indirect
 	go.uber.org/ratelimit v0.1.0 // indirect
 	golang.org/x/net v0.4.0 // indirect
-	golang.org/x/sync v0.1.0 // indirect
-	golang.org/x/sys v0.3.0 // indirect
-	golang.org/x/text v0.5.0 // indirect
+	golang.org/x/sync v0.20.0 // indirect
+	golang.org/x/sys v0.45.0 // indirect
+	golang.org/x/text v0.37.0 // indirect
 	golang.org/x/time v0.0.0-20200416051211-89c76fbcd5d1 // indirect
 	google.golang.org/api v0.21.0 // indirect
 	google.golang.org/appengine v1.6.6 // indirect
