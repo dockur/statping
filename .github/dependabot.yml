@@ -1,19 +1,14 @@
 version: 2
 
 updates:
-  - package-ecosystem: docker
-    directory: /
-    schedule:
-      interval: weekly
-    cooldown:
-      default-days: 7
-
   - package-ecosystem: github-actions
     directory: /
     schedule:
       interval: weekly
     cooldown:
       default-days: 7
+    exclude-paths:
+      - ".github/workflows/build.yml"
     ignore:
       - dependency-name: "*"
         update-types:
