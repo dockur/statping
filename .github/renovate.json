@@ -5,18 +5,9 @@
     ":disableDependencyDashboard"
   ],
   "forkProcessing": "disabled",
-  "npm": {
-    "enabled": false
-  },
-  "gomod": {
-    "enabled": false
-  },
-  "dockerfile": {
-    "enabled": false
-  },
-   "docker-compose": {
-    "enabled": false
-  },
+  "enabledManagers": [
+    "github-actions"
+  ],
   "packageRules": [
     {
       "description": "Do not update GitHub Actions in build.yml",
@@ -25,23 +16,6 @@
       ],
       "matchFileNames": [
         ".github/workflows/build.yml"
-      ],
-      "enabled": false
-    },
-    {
-      "description": "Do not update the Go module version",
-      "matchDatasources": [
-        "golang-version"
-      ],
-      "enabled": false
-    },
-    {
-      "description": "Do not update the Go Docker image",
-      "matchDatasources": [
-        "docker"
-      ],
-      "matchPackageNames": [
-        "golang"
       ],
       "enabled": false
     }
