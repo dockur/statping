@@ -5,6 +5,12 @@
     ":disableDependencyDashboard"
   ],
   "forkProcessing": "disabled",
+  "npm": {
+    "enabled": false
+  },
+  "gomod": {
+    "enabled": false
+  },
   "dockerfile": {
     "enabled": false
   },
@@ -12,6 +18,16 @@
     "enabled": false
   },
   "packageRules": [
+    {
+      "description": "Do not update GitHub Actions in build.yml",
+      "matchManagers": [
+        "github-actions"
+      ],
+      "matchFileNames": [
+        ".github/workflows/build.yml"
+      ],
+      "enabled": false
+    },
     {
       "description": "Do not update the Go module version",
       "matchDatasources": [
